@@ -1,0 +1,6 @@
+numpy~=1.22.4
+sklearn~=0.0
+scikit-learn~=1.0.2
+pandas~=1.3.5
+minepy~=1.2.6
+ennemi~=1.2.0
