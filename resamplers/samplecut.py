@@ -1,5 +1,5 @@
 from imblearn.base import BaseSampler
-from ModelTraining.feature_engineering.featureengineering.interfaces import FeatureNames
+from ..interfaces import FeatureNames
 
 
 class SampleCut(BaseSampler, FeatureNames):
