@@ -5,3 +5,4 @@ scikit-learn~=1.0.1
 scipy~=1.7.2
 minepy~=1.2.6
 ennemi~=1.2.0
+imbalanced-learn~=0.9.1
