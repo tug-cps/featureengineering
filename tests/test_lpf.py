@@ -1,5 +1,6 @@
 from featureengineering.filters import ButterworthFilter, Filter
-
+from pathlib import Path
+import os
 
 def test_filter_params_baseclass():
     filter_1 = ButterworthFilter(T=20, order=3)
@@ -13,7 +14,7 @@ def test_filter_params_baseclass():
 
 
 def test_store_load_filter():
-    path = "./test_output"
+    path = os.path.join(Path(__file__).parent, "test_output")
     filename = "LPF.pickle"
 
     filter_1 = ButterworthFilter(T=20, order=3)
@@ -24,7 +25,7 @@ def test_store_load_filter():
 
 
 def test_store_load_filter_baseclass():
-    path = "./test_output"
+    path = os.path.join(Path(__file__).parent, "test_output")
     filename = "LPF.pickle"
 
     filter_1 = ButterworthFilter(T=20, order=3)
