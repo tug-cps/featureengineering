@@ -1,4 +1,4 @@
-from ModelTraining.feature_engineering.featureengineering.featurecreators import CategoricalFeatures, CategoricalFeaturesDivider
+from featureengineering.featurecreators import CategoricalFeatures, CategoricalFeaturesDivider
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -7,8 +7,7 @@ import pytest
 
 @pytest.mark.parametrize('feature_creator',[
     CategoricalFeatures(selected_feats=['hour']),
-    CategoricalFeaturesDivider(selected_feats=['hour'])])
-
+    CategoricalFeaturesDivider(selected_feats=['hour'],division_factors={'hour':1})])
 
 def test_feature_addition(feature_creator):
     index = pd.date_range(pd.Timestamp(2021, 1, 1), pd.Timestamp(2021, 12, 31), freq='15T')
@@ -22,6 +21,10 @@ def test_feature_addition(feature_creator):
             assert(name in data_tr.columns)
             assert(name in feature_creator.get_additional_feat_names())
     assert(col_name in data_tr.columns)
+
+@pytest.mark.parametrize('feature_creator',[
+    CategoricalFeatures(selected_feats=['hour']),
+    CategoricalFeaturesDivider(selected_feats=['hour'],division_factors={'hour':1})])
 
 def test_onehot_feature(feature_creator):
     index = pd.date_range(pd.Timestamp(2021, 1, 1), pd.Timestamp(2021, 12, 31), freq='15T')

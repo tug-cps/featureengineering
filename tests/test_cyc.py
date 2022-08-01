@@ -1,4 +1,4 @@
-from ModelTraining.feature_engineering.featureengineering.featurecreators import CyclicFeatures, CyclicFeaturesSampleTime
+from featureengineering.featurecreators import CyclicFeatures, CyclicFeaturesSampleTime
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -13,7 +13,7 @@ import pytest
 def test_cyc_feats_feature_addition(feature_creator):
     index = pd.date_range(pd.Timestamp(2021, 1, 1), pd.Timestamp(2021, 12, 31), freq='15T')
     col_name = 'Test_1'
-    feat_names_full = [feature_creator._all_time_vals[name] for name in feature_creator.selected_feats]
+    feat_names_full = [[f'{name}_sin', f'{name}_cos'] for name in feature_creator.selected_feats]
     data = pd.DataFrame(index=index, data=np.zeros(len(index)), columns=[col_name])
     data_tr = feature_creator.transform(data)
     for feat_names in feat_names_full:
