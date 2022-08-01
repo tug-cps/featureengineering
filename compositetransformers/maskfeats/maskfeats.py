@@ -9,7 +9,7 @@ class MaskFeats(FeatureNames, BasicInterface):
     """
     features_to_transform = None
 
-    def __init__(self, features_to_transform=None):
+    def __init__(self, features_to_transform=None, **kwargs):
         self.features_to_transform = features_to_transform
 
     def get_feat_indices(self, X, inverse=False):
@@ -34,14 +34,13 @@ class MaskFeats(FeatureNames, BasicInterface):
         @param inverse: invert features_to_transform
         @return: selected features
         """
-        if self.features_to_transform is not None:
-            mask = self.get_feat_indices(X, inverse)
+        mask = self.get_feat_indices(X, inverse)
+        if mask is not None:
             if isinstance(X, pd.DataFrame):
                 return X[X.columns[mask]]
-            elif isinstance(X, np.ndarray):
-                return X[..., mask]
             else:
-                return np.array(X)[mask]
+                X = np.array(X) if not isinstance(X, np.ndarray) else X
+                return X[..., mask]
         else:
             return None if inverse else X
 

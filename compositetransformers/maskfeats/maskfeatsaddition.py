@@ -8,7 +8,7 @@ class MaskFeats_Addition(MaskFeats):
     Add new features at the end of the feature vector.
     """
 
-    def __init__(self, features_to_transform=None):
+    def __init__(self, features_to_transform=None, **kwargs):
         super().__init__(features_to_transform=features_to_transform)
 
     def combine_feats(self, X_transf, X_orig, feature_names=None):
