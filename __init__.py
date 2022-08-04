@@ -2,6 +2,9 @@ from . import interfaces
 from . import featurecreators
 from . import featureexpanders
 from . import featureselectors
+from . import transformers
 from . import filters
 from . import resamplers
 from . import compositetransformers
+from . import sampleweight
+from . import timebasedfeatures
