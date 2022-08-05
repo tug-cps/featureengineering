@@ -1,1 +1,2 @@
 from .dynamicfeatures import DynamicFeatures
+from .statistical_features_numpy import StatisticalFeaturesNumpy
