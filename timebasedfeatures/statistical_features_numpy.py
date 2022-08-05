@@ -41,4 +41,4 @@ class StatisticalFeaturesNumpy(BasicTransformer):
         return X_tr
 
     def _get_feature_names_out(self, feature_names=None):
-        return [f"{name}_{stat_name}_{self.window_size}" for name in feature_names for stat_name in self.statistical_features]
+        return [f"{name}_{stat_name}_{self.window_size}" for stat_name in self.statistical_features for name in feature_names]
