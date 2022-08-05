@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import scipy.signal as sig
 from ..interfaces import BasicTransformer
 
@@ -33,8 +34,11 @@ class DynamicFeatures(BasicTransformer):
             X_transf[:,i,:] = sig.lfilter(bs[i], 1.0, X, axis=0)
         if self.flatten_dynamic_feats:
             X_transf = X_transf.reshape(X_transf.shape[0], -1)
+            if isinstance(X, pd.DataFrame):
+                df_cols = self._get_feature_names_out(X.columns)
+                X_transf = pd.DataFrame(data=X_transf, index=X.index, columns=df_cols)
         if self.return_3d_array:
-            if X_transf.ndim == 2:
+            if X.ndim == 2 and X_transf.ndim == 2:
                 X_transf = X_transf.reshape(X_transf.shape[0], 1, X_transf.shape[1])
         return X_transf
 
