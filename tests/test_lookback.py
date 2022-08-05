@@ -1,5 +1,6 @@
 from featureengineering.timebasedfeatures.dynamicfeatures import DynamicFeatures
 import numpy as np
+import pandas as pd
 
 
 def test_lookback_basic():
