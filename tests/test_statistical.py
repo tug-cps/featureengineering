@@ -17,10 +17,10 @@ def test_statfeats_df():
     statfeats = StatisticalFeaturesNumpy(window_size=4,statistical_features=['min','max'])
     X_tr = statfeats.fit_transform(X)
     for i in range(3):
-        assert(np.all(X_tr[f'Feat_{i}_min'][:4]==np.min(X[f'Feat_{i}'][:4],axis=0)))
-        assert(np.all(X_tr[f'Feat_{i}_min'][4:8] == np.min(X[f'Feat_{i}'][4:8], axis=0)))
-        assert(np.all(X_tr[f'Feat_{i}_max'][:4]==np.max(X[f'Feat_{i}'][:4],axis=0)))
-        assert(np.all(X_tr[f'Feat_{i}_max'][4:8] == np.max(X[f'Feat_{i}'][4:8], axis=0)))
+        assert(np.all(X_tr[f'Feat_{i}_min_4'][:4]==np.min(X[f'Feat_{i}'][:4],axis=0)))
+        assert(np.all(X_tr[f'Feat_{i}_min_4'][4:8] == np.min(X[f'Feat_{i}'][4:8], axis=0)))
+        assert(np.all(X_tr[f'Feat_{i}_max_4'][:4]==np.max(X[f'Feat_{i}'][:4],axis=0)))
+        assert(np.all(X_tr[f'Feat_{i}_max_4'][4:8] == np.max(X[f'Feat_{i}'][4:8], axis=0)))
 
 
 if __name__ == "__main__":
