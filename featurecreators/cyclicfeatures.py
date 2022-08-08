@@ -40,8 +40,8 @@ class CyclicFeatures(FeatureCreator):
         # Add labels to data
         for label in self.selected_feats:
             cycl_info = self._all_time_vals[label]
-            X[label] = getattr(X.index, cycl_info.name, [])
-            X_t[f'{label}_sin'], X_t[f'{label}_cos'] = self.calc_sin_cos(X[label], cycl_info.T)
+            timevals = getattr(X.index, cycl_info.name, [])
+            X_t[f'{label}_sin'], X_t[f'{label}_cos'] = self.calc_sin_cos(timevals, cycl_info.T)
         return X_t
 
     def calc_sin_cos(self, time, T:float=1):
@@ -87,6 +87,6 @@ class CyclicFeaturesSampleTime(CyclicFeatures):
         # Add labels to data
         for label in self.selected_feats:
             cycl_info = self._all_time_vals[label]
-            X_t[label] = np.array([(val - X.index[0]).total_seconds() for val in X.index]) / self.sample_time
-            X_t[f'{label}_sin'], X_t[f'{label}_cos'] = self.calc_sin_cos(X_t[label], cycl_info.T / self.sample_time)
+            timevals = np.array([(val - X.index[0]).total_seconds() for val in X.index]) / self.sample_time
+            X_t[f'{label}_sin'], X_t[f'{label}_cos'] = self.calc_sin_cos(timevals, cycl_info.T / self.sample_time)
         return X_t
