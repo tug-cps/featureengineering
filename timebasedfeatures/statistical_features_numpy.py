@@ -31,8 +31,9 @@ class StatisticalFeaturesNumpy(BasicTransformer):
                                         for feat in self.statistical_features], axis=-1)
         X_rest = X_to_transform[num_full_windows * self.window_size:]
         if X_rest.shape[0] > 0:
-            X_tr_rest = np.concatenate([np.repeat(np.reshape(getattr(np, feat)(X_rest, axis=0), (1,X.shape[-1])), X_rest.shape[0])
-                                        for feat in self.statistical_features], axis=-1)
+            X_tr_rest = np.zeros((X_rest.shape[0], len(self.statistical_features) * X_rest.shape[1]))
+            for i, feat in enumerate(self.statistical_features):
+                X_tr_rest[:,i*X_rest.shape[1]:(i+1)*X_rest.shape[1]] = getattr(np, feat)(X_rest, axis=0)
             X_tr = np.concatenate((X_tr_reshaped, X_tr_rest), axis=0)
         else:
             X_tr = X_tr_reshaped
