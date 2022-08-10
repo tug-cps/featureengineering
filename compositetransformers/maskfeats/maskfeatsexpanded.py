@@ -26,9 +26,9 @@ class MaskFeats_Expanded(MaskFeats):
                 if feature_names is None:
                     feature_names = [f'feat_{i}' for i in
                                         range(x_basic.shape[-1], x_basic.shape[-1] + X_transf.shape[-1])]
-                for i, name in enumerate(feature_names):
-                    x_basic[name] = X_transf[X_transf.columns[i]] if isinstance(X_transf, pd.DataFrame) else X_transf[..., i]
-                return x_basic
+                x_transf_vals = X_transf.values if isinstance(X_transf, pd.DataFrame) else X_transf
+                x_transf_df = pd.DataFrame(index=X_orig.index, data=x_transf_vals, columns=feature_names)
+                return x_transf_df if x_basic.shape[1] == 0 else x_basic.join(x_transf_df)
             else:
                 return np.concatenate((x_basic, X_transf), axis=-1)
         else:

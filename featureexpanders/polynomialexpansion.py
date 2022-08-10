@@ -1,3 +1,4 @@
+import numpy as np
 from . import FeatureExpansion
 from sklearn.preprocessing import PolynomialFeatures
 
@@ -27,5 +28,8 @@ class PolynomialExpansion(FeatureExpansion):
         return self.model_.transform(x)
 
     def _get_feature_names_out(self, feature_names=None):
-        return self.model_.get_feature_names_out(feature_names)
+        if self.model_.feature_names_in_ is not None:
+            return self.model_.get_feature_names_out(self.model_.feature_names_in_)
+        else:
+            return self.model_.get_feature_names_out(feature_names)
 
