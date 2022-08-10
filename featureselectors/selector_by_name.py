@@ -13,8 +13,8 @@ class SelectorByName(FeatureSelector):
 
     def __init__(self, feature_names_in=[], selected_feat_names=[], **kwargs):
         super().__init__(**kwargs)
-        self.feature_names_in = np.array(feature_names_in)
-        self.selected_feat_names = np.array(selected_feat_names)
+        self.feature_names_in = feature_names_in
+        self.selected_feat_names = selected_feat_names
 
     def _fit(self, X, y, **fit_params):
         if isinstance(X, pd.DataFrame):
