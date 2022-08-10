@@ -20,15 +20,16 @@ class MaskFeats_Expanded(MaskFeats):
         """
         if self.features_to_transform is not None:
             # If transformation created new features: concatenate basic and new features
+            x_basic = self.mask_feats(X_orig, inverse=True)
             if isinstance(X_orig, pd.DataFrame):
-                x_basic = self.mask_feats(X_orig, inverse=True)
-                dummy_feat_names = [f'feat_{i}' for i in range(x_basic.shape[-1], x_basic.shape[-1] + X_transf.shape[-1])]
-                feat_names = dummy_feat_names if feature_names is None else feature_names
-                for i, name in enumerate(feat_names):
+                x_basic = pd.DataFrame(index=X_orig.index) if x_basic is None else x_basic
+                if feature_names is None:
+                    feature_names = [f'feat_{i}' for i in
+                                        range(x_basic.shape[-1], x_basic.shape[-1] + X_transf.shape[-1])]
+                for i, name in enumerate(feature_names):
                     x_basic[name] = X_transf[X_transf.columns[i]] if isinstance(X_transf, pd.DataFrame) else X_transf[..., i]
                 return x_basic
             else:
-                x_basic = self.mask_feats(X_orig, inverse=True)
                 return np.concatenate((x_basic, X_transf), axis=-1)
         else:
             return X_transf
