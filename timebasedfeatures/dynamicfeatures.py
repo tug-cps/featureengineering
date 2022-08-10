@@ -20,6 +20,13 @@ class DynamicFeatures(BasicTransformer):
         self.flatten_dynamic_feats = flatten_dynamic_feats
         self.return_3d_array = return_3d_array
 
+    def transform(self, X):
+        X_transf = self._transform(X)
+        if isinstance(X, pd.DataFrame):
+            df_cols = self._get_feature_names_out(X.columns)
+            X_transf = pd.DataFrame(data=X_transf, index=X.index, columns=df_cols)
+        return X_transf
+
     def _transform(self, X):
         """
         Split into target segments
@@ -34,9 +41,6 @@ class DynamicFeatures(BasicTransformer):
             X_transf[:,i,:] = sig.lfilter(bs[i], 1.0, X, axis=0)
         if self.flatten_dynamic_feats:
             X_transf = X_transf.reshape(X_transf.shape[0], -1)
-            if isinstance(X, pd.DataFrame):
-                df_cols = self._get_feature_names_out(X.columns)
-                X_transf = pd.DataFrame(data=X_transf, index=X.index, columns=df_cols)
         if self.return_3d_array:
             if X.ndim == 2 and X_transf.ndim == 2:
                 X_transf = X_transf.reshape(X_transf.shape[0], 1, X_transf.shape[1])
