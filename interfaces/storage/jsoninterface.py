@@ -1,4 +1,5 @@
 import json
+import os
 from . import BasicInterface
 
 
@@ -8,6 +9,9 @@ class JSONInterface(BasicInterface):
 
     def to_file(self, file_path, append=False):
         file_path = str(file_path)
+        dir = os.path.join(*os.path.split(file_path)[:-1])
+        if not os.path.exists(dir):
+            os.makedirs(dir, exist_ok=True)
         if not file_path.endswith('.json'):
             file_path = f"{file_path}.json"
         flag = "a" if append else "w"
