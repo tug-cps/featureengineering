@@ -1,0 +1,3 @@
+[submodule "interfaces/storage"]
+	path = interfaces/storage
+	url = https://github.com/tug-cps/storage
